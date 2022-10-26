@@ -1,3 +1,5 @@
+import random
+
 print('Ismael R. Silva')
 
 def transforma_base(l):
@@ -87,12 +89,18 @@ def valida_questoes(questoes):
     return lista_problemas
 
 
-import random
-
-def sorteia_questao(dic, nivel):
+def sorteia_questao_inedida(dic, nivel, lista):
+    
     sorteado = {}
 
     for i, j in dic.items():
         if i == nivel:
             sorteado = random.choice(j)
+            for k in range(len(lista)):
+                if lista[k] == sorteado:
+                    random.choice(j)
+                    k = 0
+            lista.append(sorteado)
+    
+    
     return sorteado
