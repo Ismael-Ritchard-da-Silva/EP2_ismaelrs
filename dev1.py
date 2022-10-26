@@ -104,3 +104,12 @@ def sorteia_questao_inedida(dic, nivel, lista):
     
     
     return sorteado
+
+def questao_para_texto(questao, numero):
+    titulo = questao['titulo']
+    A = questao['opcoes']['A']
+    B = questao['opcoes']['B']
+    C = questao['opcoes']['C']
+    D = questao['opcoes']['D']
+
+    return ('----------------------------------------\nQUESTAO {0}\n\n{1}\n\nRESPOSTAS:\nA: {2}\nB: {3}\nC: {4}\nD: {5}\n'.format(numero, titulo, A, B, C, D))
