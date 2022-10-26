@@ -308,17 +308,19 @@ print('Seu objetivo é acertar o maior número de questões possíveis para acum
 print('Caso você erre a resposta você perde o prêmio acumulado, então gerencie bem as suas dicas e lembre-se que a qualquer momento você pode parar e sair com o prêmio acumulado até então.')
 print('Sendo assim, boa sorte!')
 
-lista_de_premiacoes = [0, 1000, 5000, 10000, 30000, 50000, 100000, 300000, 500000, 1000000]
-lista_anteriores = [] #inicial
-nivel = 'facil' #inicial
-numero = 1 #inicial
-pulo = 3 #inicial
-ajuda = 2 #inicial
 jogo = True
 nova_questao = True
 
 while jogo == True:
+
+    lista_de_premiacoes = [0, 1000, 5000, 10000, 30000, 50000, 100000, 300000, 500000, 1000000]
+    lista_anteriores = [] #inicial
+    nivel = 'facil' #inicial
+    numero = 1 #inicial
+    pulo = 3 #inicial
+    ajuda = 2 #inicial
     nova_questao == True
+
     while nova_questao == True:
         questoes_ordenadas = transforma_base(lista_questoes)
         questoes_validadas = valida_questoes(questoes_ordenadas)
@@ -328,19 +330,31 @@ while jogo == True:
         mostrar_questao = questao_para_texto(questao_sorteada, numero)
         decisao_jogador = ('Digite sua resposta {0}, pular, ajuda ou parar: '.format(jogador))
 
-        if decisao_jogador == 'pular':
+        while decisao_jogador == 'pular':
             if pulo > 0:
                 pulo -= 1
-        elif decisao_jogador == 'ajuda':
+                nova_questao = True
+            else:
+                print('Ops, parece que você não tem mais pulos disponíveis.')
+                print(mostrar_questao)
+                print(decisao_jogador)
+        while decisao_jogador == 'ajuda':
             if ajuda > 0:
                 ajuda -= 1
-        elif decisao_jogador == 'parar':
-            decisao_final = input('Obrigado por ter jogado {0}, seu saldo final foi de {1}. Caso deseje jogar novamente digite jogar, caso queira parar por hoje digite encerrar: '.format(jogador, lista_de_premiacoes(numero)))
+                print(gera_ajuda(questao_sorteada))
+                print(mostrar_questao)
+                print(decisao_jogador)
+            else:
+                print('Ops, parece que você não tem mais ajudas disponíveis.')
+                print(mostrar_questao)
+                print(decisao_jogador)
+        while decisao_jogador == 'parar':
+            decisao_final = input('{0}, eu saldo final foi de {1}. Caso deseje jogar novamente digite jogar, caso queira parar por hoje digite encerrar: '.format(jogador, lista_de_premiacoes(numero)))
             if decisao_final == 'jogar':
-                print()
+                jogo = True
             elif decisao_final == 'encerrar':
-                print()
-        else:
-            if decisao_jogador == 'A' or decisao_jogador == 'B' or decisao_jogador == 'C' or decisao_jogador == 'D':
-                if decisao_jogador == questao_sorteada['correta']:
-                    print('Parabens, {0}, você acertou. Seu saldo agora é de: R${1}'.format(jogador, lista_de_premiacoes[numero]))
+                print('Obrigado por ter jogado, {0}. Espero que tenha gostado e até breve.'.format(jogador))
+                jogo = False
+        while decisao_jogador == 'A' or decisao_jogador == 'B' or decisao_jogador == 'C' or decisao_jogador == 'D':
+            if decisao_jogador == questao_sorteada['correta']:
+                print('Parabens, {0}, você acertou. Seu saldo agora é de: R${1}'.format(jogador, lista_de_premiacoes[numero]))
