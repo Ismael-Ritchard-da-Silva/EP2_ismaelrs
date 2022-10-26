@@ -2,19 +2,19 @@ import random
 
 print('Ismael R. Silva')
 
-def transforma_base(l):
-    dic = {}
+def transforma_base(lista_de_questoes):
+    questoes_por_nivel = {}
 
-    for i in range(len(l)):
-        for j, k in l[i].items():
+    for i in range(len(lista_de_questoes)):
+        for j, k in lista_de_questoes[i].items():
             if j == 'nivel':
-                if k not in dic.keys():
-                    dic[k] = []
-                    dic[k].append(l[i])
-                elif k in dic.keys():
-                    dic[k].append(l[i])
+                if k not in questoes_por_nivel.keys():
+                    questoes_por_nivel[k] = []
+                    questoes_por_nivel[k].append(lista_de_questoes[i])
+                elif k in questoes_por_nivel.keys():
+                    questoes_por_nivel[k].append(lista_de_questoes[i])
     
-    return dic
+    return questoes_por_nivel
 
 def valida_questao(questao):
 
@@ -79,47 +79,47 @@ def valida_questao(questao):
     return validacao
 
 
-def valida_questoes(questoes):
+def valida_questoes(questoes_por_nivel):
     lista_problemas = []
 
-    for i in range(len(questoes)):
-        x = valida_questao(questoes[i])
+    for i in range(len(questoes_por_nivel)):
+        x = valida_questao(questoes_por_nivel[i])
         lista_problemas.append(x)
     
     return lista_problemas
 
 
-def sorteia_questao_inedida(dic, nivel, lista):
+def sorteia_questao_inedida(questoes_por_nivel, nivel, lista_anteriores):
     
     sorteado = {}
 
-    for i, j in dic.items():
+    for i, j in questoes_por_nivel.items():
         if i == nivel:
             sorteado = random.choice(j)
-            for k in range(len(lista)):
-                if lista[k] == sorteado:
+            for k in range(len(lista_anteriores)):
+                if lista_anteriores[k] == sorteado:
                     random.choice(j)
                     k = 0
-            lista.append(sorteado)
+            lista_anteriores.append(sorteado)
     
     
     return sorteado
 
-def questao_para_texto(questao, numero):
-    titulo = questao['titulo']
-    A = questao['opcoes']['A']
-    B = questao['opcoes']['B']
-    C = questao['opcoes']['C']
-    D = questao['opcoes']['D']
+def questao_para_texto(questao_sorteada, numero):
+    titulo = questao_sorteada['titulo']
+    A = questao_sorteada['opcoes']['A']
+    B = questao_sorteada['opcoes']['B']
+    C = questao_sorteada['opcoes']['C']
+    D = questao_sorteada['opcoes']['D']
 
     return ('----------------------------------------\nQUESTAO {0}\n\n{1}\n\nRESPOSTAS:\nA: {2}\nB: {3}\nC: {4}\nD: {5}\n'.format(numero, titulo, A, B, C, D))
 
-def gera_ajuda(questao):
-    correta = questao['correta']
+def gera_ajuda(questao_sorteada):
+    correta = questao_sorteada['correta']
     lista_incorretas = []
     dica = []
 
-    for i, j in questao['opcoes'].items():
+    for i, j in questao_sorteada['opcoes'].items():
         if i != correta:
             lista_incorretas.append(j)
 
@@ -135,3 +135,14 @@ def gera_ajuda(questao):
         return 'DICA:\nOpções certamente erradas: {0} | {1}'.format(dica[0], dica[1])
     elif len(dica) == 1:
         return 'DICA:\nOpções certamente erradas: {0}'.format(dica[0])
+
+######## aqui começa a rodar o jogo ###########
+
+jogador = input('Olá, seja bom-vind@. O jogo irá começar em breve. Antes disso, me informe seu nome por favor: ')
+
+print('Aqui vai um breve manual de como nosso jogo irá funcionar.\nVocê responderá perguntas de multipla escolha de modo a acumular um prêmio maior a cada acerto seguindo a seguinte métrica:\n\n')
+print('Primeiro acerto: R$1000\nSegundo acerto: R$5000\nTerceiro acerto: R$10000\nQuarto acerto: R$30000\nQuinto acerto: R$50000\nSexto acerto: R$100000\nSétimo acerto: R$300000\nOitavo acerto: R$500000\nNono acerto: R$1000000')
+print('Seu objetivo é acertar o maior número de questões possíveis para acumular uma maior premiação. Para isso você poderá PULAR uma questão 3 vezes durante o jogo e pedir AJUDA 2 vezes. A ajuda irá te informar uma ou duas alternativas certamente erradas.')
+print('Caso você erre a resposta você perde o prêmio acumulado, então gerencie bem as suas dicas e lembre-se que a qualquer momento você pode parar e sair com o prêmio acumulado até então.')
+print('Sendo assim, boa sorte!')
+
