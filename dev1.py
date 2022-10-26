@@ -85,3 +85,14 @@ def valida_questoes(questoes):
         lista_problemas.append(x)
     
     return lista_problemas
+
+
+import random
+
+def sorteia_questao(dic, nivel):
+    sorteado = {}
+
+    for i, j in dic.items():
+        if i == nivel:
+            sorteado = random.choice(j)
+    return sorteado
