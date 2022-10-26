@@ -75,4 +75,13 @@ def valida_questao(questao):
         validacao['outro'] = 'numero_chaves_invalido'
 
     return validacao
+
+
+def valida_questoes(questoes):
+    lista_problemas = []
+
+    for i in range(len(questoes)):
+        x = valida_questao(questoes[i])
+        lista_problemas.append(x)
     
+    return lista_problemas
