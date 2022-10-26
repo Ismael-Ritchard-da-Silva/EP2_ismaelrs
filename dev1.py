@@ -113,3 +113,25 @@ def questao_para_texto(questao, numero):
     D = questao['opcoes']['D']
 
     return ('----------------------------------------\nQUESTAO {0}\n\n{1}\n\nRESPOSTAS:\nA: {2}\nB: {3}\nC: {4}\nD: {5}\n'.format(numero, titulo, A, B, C, D))
+
+def gera_ajuda(questao):
+    correta = questao['correta']
+    lista_incorretas = []
+    dica = []
+
+    for i, j in questao['opcoes'].items():
+        if i != correta:
+            lista_incorretas.append(j)
+
+    n = [1, 2]
+    qt = random.choice(n)
+
+    k = 0
+    while k < qt:
+        dica.append(random.choice(lista_incorretas))
+        k += 1
+
+    if len(dica) == 2:
+        return 'DICA:\nOpções certamente erradas: {0} | {1}'.format(dica[0], dica[1])
+    elif len(dica) == 1:
+        return 'DICA:\nOpções certamente erradas: {0}'.format(dica[0])
