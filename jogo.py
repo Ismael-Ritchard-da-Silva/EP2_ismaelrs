@@ -1,4 +1,5 @@
 from dev1 import *
+from colorama import Fore, Back, Style
  
 lista_questoes = [{'titulo': 'Qual o resultado da operação 57 + 32?',
           'nivel': 'facil',
@@ -251,7 +252,7 @@ def jogo(jogador, lista_questoes):
                                 elif decisao_final == 'encerrar' or decisao_final == 'Encerrar':
                                     return 'Obrigado por ter jogado, {0}. Meus parabéns novamente. Espero que tenha gostado e até breve.'.format(jogador)
                         if decisao_jogador != questao_sorteada['correta']:
-                            print('Infelizmente esta não era a resposta certa, {0}. Seu saldo final foi de: R${1}'.format(jogador, lista_de_premiacoes[numero]))
+                            print(Fore.RED + 'Infelizmente esta não era a resposta certa, {0}. Seu saldo final foi de: R${1}'.format(jogador, lista_de_premiacoes[numero]))
                             decisao_final = input('{0}, seu saldo final foi de {1}. Caso deseje jogar novamente digite jogar, caso queira parar por hoje digite encerrar: '.format(jogador, lista_de_premiacoes[numero]))
                             if decisao_final == 'jogar':
                                 print('Okay, vamos começar novamente!')
