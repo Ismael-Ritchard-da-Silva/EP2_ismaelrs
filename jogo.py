@@ -1,5 +1,5 @@
 from dev1 import *
-
+ 
 lista_questoes = [{'titulo': 'Qual o resultado da operação 57 + 32?',
           'nivel': 'facil',
           'opcoes': {'A': '-19', 'B': '85', 'C': '89', 'D': '99'},
