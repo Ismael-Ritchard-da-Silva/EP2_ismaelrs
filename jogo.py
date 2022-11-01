@@ -204,61 +204,71 @@ def jogo(jogador, lista_questoes):
             respondido = True
         
             while respondido:
-                if decisao_jogador == 'pular':
-                    if pulo > 0:
-                        pulo -= 1
-                        numero += 1
-                        print('Você possui mais {0} pulos.'.format(pulo))
-                        respondido = False
-                    else:
-                        while decisao_jogador == 'pular':
-                            print('Ops, parece que você não tem mais pulos disponíveis.')
-                            print(mostrar_questao)
-                            decisao_jogador = input('Digite sua resposta {0}, pular, ajuda ou parar: '.format(jogador))
-                elif decisao_jogador == 'ajuda':
-                    if ajuda > 0:
-                        ajuda -= 1
-                        print(gera_ajuda(questao_sorteada))
-                        print(mostrar_questao)
-                        print('Você possui mais {0} ajudas'.format(ajuda))
-                        decisao_jogador = input('Digite sua resposta {0}, pular, ajuda ou parar: '.format(jogador))
-                    else:
-                        print('Ops, parece que você não tem mais ajudas disponíveis.')
-                        print(mostrar_questao)
-                        decisao_jogador = input('Digite sua resposta {0}, pular, ajuda ou parar: '.format(jogador))
-                elif decisao_jogador == 'parar':
-                    decisao_final = input('{0}, seu saldo final foi de {1}. Caso deseje jogar novamente digite jogar, caso queira parar por hoje digite encerrar: '.format(jogador, lista_de_premiacoes[numero]))
-                    if decisao_final == 'jogar' or decisao_final == 'Jogar':
-                        print('Okay, vamos começar novamente!')
-                        nova_questao = False
-                        respondido = False       
-                    elif decisao_final == 'encerrar' or decisao_final == 'Encerrar':
-                        return 'Obrigado por ter jogado, {0}. Espero que tenha gostado e até breve.'.format(jogador) 
-                elif decisao_jogador == 'A' or decisao_jogador == 'B' or decisao_jogador == 'C' or decisao_jogador == 'D':
-                    if decisao_jogador == questao_sorteada['correta']:
-                        if numero < 9:
+                if numero < 8:
+                    if decisao_jogador == 'pular':
+                        if pulo > 0:
+                            pulo -= 1
                             numero += 1
-                            print('Parabéns, {0}, você acertou. Seu saldo agora é de: R${1}'.format(jogador, lista_de_premiacoes[numero]))
+                            print('Você possui mais {0} pulos.'.format(pulo))
                             respondido = False
                         else:
-                            print('Parabéns!!! Você venceu o Fortuna DesSoft')
+                            while decisao_jogador == 'pular':
+                                print('Ops, parece que você não tem mais pulos disponíveis.')
+                                print(mostrar_questao)
+                                decisao_jogador = input('Digite sua resposta {0}, pular, ajuda ou parar: '.format(jogador))
+                    elif decisao_jogador == 'ajuda':
+                        if ajuda > 0:
+                            ajuda -= 1
+                            print(gera_ajuda(questao_sorteada))
+                            print(mostrar_questao)
+                            print('Você possui mais {0} ajudas'.format(ajuda))
+                            decisao_jogador = input('Digite sua resposta {0}, pular, ajuda ou parar: '.format(jogador))
+                        else:
+                            print('Ops, parece que você não tem mais ajudas disponíveis.')
+                            print(mostrar_questao)
+                            decisao_jogador = input('Digite sua resposta {0}, pular, ajuda ou parar: '.format(jogador))
+                    elif decisao_jogador == 'parar':
+                        decisao_final = input('{0}, seu saldo final foi de {1}. Caso deseje jogar novamente digite jogar, caso queira parar por hoje digite encerrar: '.format(jogador, lista_de_premiacoes[numero]))
+                        if decisao_final == 'jogar' or decisao_final == 'Jogar':
+                            print('Okay, vamos começar novamente!')
+                            nova_questao = False
+                            respondido = False       
+                        elif decisao_final == 'encerrar' or decisao_final == 'Encerrar':
+                            return 'Obrigado por ter jogado, {0}. Espero que tenha gostado e até breve.'.format(jogador) 
+                    elif decisao_jogador == 'A' or decisao_jogador == 'B' or decisao_jogador == 'C' or decisao_jogador == 'D':
+                        if decisao_jogador == questao_sorteada['correta']:
+                            if numero < 9:
+                                numero += 1
+                                print('Parabéns, {0}, você acertou. Seu saldo agora é de: R${1}'.format(jogador, lista_de_premiacoes[numero]))
+                                respondido = False
+                            else:
+                                print('Parabéns!!! Você venceu o Fortuna DesSoft')
+                                decisao_final = input('{0}, seu saldo final foi de {1}. Caso deseje jogar novamente digite jogar, caso queira parar por hoje digite encerrar: '.format(jogador, lista_de_premiacoes[numero]))
+                                if decisao_final == 'jogar' or decisao_final == 'Jogar':
+                                    print('Okay, vamos começar novamente!')
+                                    nova_questao = False
+                                    respondido = False
+                                elif decisao_final == 'encerrar' or decisao_final == 'Encerrar':
+                                    return 'Obrigado por ter jogado, {0}. Meus parabéns novamente. Espero que tenha gostado e até breve.'.format(jogador)
+                        if decisao_jogador != questao_sorteada['correta']:
+                            print('Infelizmente esta não era a resposta certa, {0}. Seu saldo final foi de: R${1}'.format(jogador, lista_de_premiacoes[numero]))
                             decisao_final = input('{0}, seu saldo final foi de {1}. Caso deseje jogar novamente digite jogar, caso queira parar por hoje digite encerrar: '.format(jogador, lista_de_premiacoes[numero]))
-                            if decisao_final == 'jogar' or decisao_final == 'Jogar':
+                            if decisao_final == 'jogar':
                                 print('Okay, vamos começar novamente!')
                                 nova_questao = False
                                 respondido = False
                             elif decisao_final == 'encerrar' or decisao_final == 'Encerrar':
-                                return 'Obrigado por ter jogado, {0}. Meus parabéns novamente. Espero que tenha gostado e até breve.'.format(jogador)
-                    if decisao_jogador != questao_sorteada['correta']:
-                        print('Infelizmente esta não era a resposta certa, {0}. Seu saldo final foi de: R${1}'.format(jogador, lista_de_premiacoes[numero]))
-                        decisao_final = input('{0}, seu saldo final foi de {1}. Caso deseje jogar novamente digite jogar, caso queira parar por hoje digite encerrar: '.format(jogador, lista_de_premiacoes[numero]))
-                        if decisao_final == 'jogar':
-                            print('Okay, vamos começar novamente!')
-                            nova_questao = False
-                            respondido = False
-                        elif decisao_final == 'encerrar' or decisao_final == 'Encerrar':
-                            return 'Obrigado por ter jogado, {0}. Espero que tenha gostado e até breve.'.format(jogador)
-
+                                return 'Obrigado por ter jogado, {0}. Espero que tenha gostado e até breve.'.format(jogador)
+                else:
+                    print('Parabéns!!! Você venceu o Fortuna DesSoft')
+                    decisao_final = input('{0}, seu saldo final foi de {1}. Caso deseje jogar novamente digite jogar, caso queira parar por hoje digite encerrar: '.format(jogador, lista_de_premiacoes[numero + 1]))
+                    if decisao_final == 'jogar' or decisao_final == 'Jogar':
+                        print('Okay, vamos começar novamente!')
+                        nova_questao = False
+                        respondido = False
+                    elif decisao_final == 'encerrar' or decisao_final == 'Encerrar':
+                        return 'Obrigado por ter jogado, {0}. Meus parabéns novamente. Espero que tenha gostado e até breve.'.format(jogador)
+ 
 jogar = input('{0}, deseja iniciar um novo jogo agora? [sim/nao]\n'.format(jogador))
 
 if jogar == 'sim':
