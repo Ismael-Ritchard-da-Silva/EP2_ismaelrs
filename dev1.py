@@ -134,6 +134,6 @@ def gera_ajuda(questao_sorteada):
         k += 1
 
     if len(dica) == 2:
-        return 'DICA:\nOpções certamente erradas: {0} | {1}'.format(dica[0], dica[1])
+        return '\033[0;36m\nDICA:\nOpções certamente erradas: {0} | {1}\033[m'.format(dica[0], dica[1])
     elif len(dica) == 1:
-        return 'DICA:\nOpções certamente erradas: {0}'.format(dica[0])
+        return '\033[0;36m\nDICA:\nOpções certamente erradas: {0}\033[m'.format(dica[0])
