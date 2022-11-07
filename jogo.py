@@ -188,16 +188,15 @@ def jogo(jogador, lista_questoes):
         while nova_questao:
             if numero < 3:
                 nivel = 'facil'
-            elif numero >= 3 < 6:
+            elif numero >= 3 and numero <= 5:
                 nivel = 'medio'
-            else:
+            elif numero >= 6:
                 nivel = 'dificil'
+
             questoes_ordenadas = transforma_base(lista_questoes)
             questoes_validadas = valida_questoes(questoes_ordenadas)
             sorteio = sorteia_questao_inedida(questoes_ordenadas, nivel, lista_anteriores)
-            questao_sorteada = sorteio[0]
-            lista_anteriores = sorteio[1]
-            questao = questao_sorteada
+            questao = sorteio[0]
             mostrar_questao = questao_para_texto(questao, numero)
             print(mostrar_questao)
             decisao_jogador = input('Digite sua resposta {0}, pular, ajuda ou parar: '.format(jogador))
@@ -219,7 +218,7 @@ def jogo(jogador, lista_questoes):
                     elif decisao_jogador == 'ajuda':
                         if ajuda > 0:
                             ajuda -= 1
-                            print(gera_ajuda(questao_sorteada))
+                            print(gera_ajuda(questao))
                             print(mostrar_questao)
                             print('\033[0;36mVocê possui mais\033[m \033[1;36m{0}\033[m \033[0;36majudas\033[m'.format(ajuda))
                             decisao_jogador = input('Digite sua resposta {0}, pular, ajuda ou parar: '.format(jogador))
@@ -236,7 +235,7 @@ def jogo(jogador, lista_questoes):
                         elif decisao_final == 'encerrar' or decisao_final == 'Encerrar':
                             return 'Obrigado por ter jogado, {0}. Espero que tenha gostado e até breve.'.format(jogador) 
                     elif decisao_jogador == 'A' or decisao_jogador == 'B' or decisao_jogador == 'C' or decisao_jogador == 'D':
-                        if decisao_jogador == questao_sorteada['correta']:
+                        if decisao_jogador == questao['correta']:
                             if numero < 9:
                                 numero += 1
                                 print('\033[0;36mParabéns, {0}, você acertou. Seu saldo agora é de: \033[1;36mR${1}\033[m'.format(jogador, lista_de_premiacoes[numero]))
@@ -250,7 +249,7 @@ def jogo(jogador, lista_questoes):
                                     respondido = False
                                 elif decisao_final == 'encerrar' or decisao_final == 'Encerrar':
                                     return 'Obrigado por ter jogado, {0}. Meus parabéns novamente. Espero que tenha gostado e até breve.'.format(jogador)
-                        if decisao_jogador != questao_sorteada['correta']:
+                        if decisao_jogador != questao['correta']:
                             print('\033[0;31mInfelizmente esta não era a resposta certa, {0}. Seu saldo final foi de: \033[1;31mR${1}\033[m'.format(jogador, lista_de_premiacoes[numero]))
                             decisao_final = input('{0}, seu saldo final foi de \033[1;36m{1}\033[m.\nCaso deseje jogar novamente digite jogar, caso queira parar por hoje digite encerrar: '.format(jogador, lista_de_premiacoes[numero]))
                             if decisao_final == 'jogar':
