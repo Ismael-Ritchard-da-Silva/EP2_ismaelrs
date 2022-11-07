@@ -260,8 +260,8 @@ def jogo(jogador, lista_questoes):
                             elif decisao_final == 'encerrar' or decisao_final == 'Encerrar':
                                 return 'Obrigado por ter jogado, {0}. Espero que tenha gostado e até breve.'.format(jogador)
                 else:
-                    print('Parabéns!!! Você venceu o Fortuna DesSoft')
-                    decisao_final = input('{0}, seu saldo final foi de {1}. Caso deseje jogar novamente digite jogar, caso queira parar por hoje digite encerrar: '.format(jogador, lista_de_premiacoes[numero + 1]))
+                    print('\033[1;32mParabéns!!! Você venceu o Fortuna DesSoft\033[m')
+                    decisao_final = input('\033[1;32m{0}, seu saldo final foi de {1}.\033[m Caso deseje jogar novamente digite jogar, caso queira parar por hoje digite encerrar: '.format(jogador, lista_de_premiacoes[numero + 1]))
                     if decisao_final == 'jogar' or decisao_final == 'Jogar':
                         print('Okay, vamos começar novamente!')
                         nova_questao = False
